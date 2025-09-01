@@ -1,0 +1,3 @@
+对 ./rpc 文件当中的函数方法进行二次封装
+成为 gin.HandlerFunc
+函数签名 func (ctx *gin.Context)

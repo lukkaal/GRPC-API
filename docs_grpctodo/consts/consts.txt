@@ -1,0 +1,6 @@
+const (
+	PassWordCost = 12 // encypt level
+	UserIdKey    = "UserIdKey"
+)
+
+定义了几个常量

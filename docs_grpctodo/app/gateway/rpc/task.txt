@@ -1,0 +1,12 @@
+为 rpc client 的方法先封装一层：
+
+比如：
+func (taskpb.TaskServiceClient) TaskUpdate(ctx context.Context, in *taskpb.TaskUpdateRequest, opts ...grpc.CallOption) (*taskpb.TaskCommonResponse, error)
+
+将 TaskClient.TaskUpdate(ctx, req) 封装进自定义的函数：
+func TaskUpdate(ctx context.Context,req *taskpb.TaskUpdateRequest)
+ (resp *taskpb.TaskCommonResponse, err error)
+
+这是第一层封装：意义在于 使得 gin 的 handler 和 rpc 底层调用隔离开
+后续会进行第二层封装 也就是封装为 gin.HandlerFunc 
+函数签名为 func (ctx *gin.Context)

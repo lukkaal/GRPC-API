@@ -1,0 +1,16 @@
+在 gateway 中使用 rpc 调用的时候 需要在开启网关的时候 实现 rpc client 的初始化
+以 task 的 client 进行说明
+关于 resolver 的部分在 discover 当中会进行说明
+
+TaskClient taskpb.TaskServiceClient
+
+使用 grpc.NewClient 函数 传入 addr 和 opts(rpc 的连接选项)
+底层会根据 addr 调用相关的 resolver 进行连接 返回 *grpc.ClientConn
+(按照格式 addr = scheme://authority/endpoint 进行解析)
+(比如 etcd:///user-service/v1/127.0.0.1:8080)
+
+使用 *c = taskpb.NewTaskServiceClient(conn)
+其中 c 是 &TaskClient
+从而完成一个 client 的初始化
+
+init 文件就是要完成 client 的初始化 以便直接调用这个 client 的 rpc 方法

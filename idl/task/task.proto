@@ -1,0 +1,89 @@
+syntax = "proto3";
+option go_package = "github.com/lukkaal/GRPC-API/idl/task;taskpb";
+
+// ----------------- Task Model -----------------
+message TaskModel {
+    // @inject_tag: json:"task_id" form:"task_id"
+    int64 task_id = 1;
+    // @inject_tag: json:"user_id" form:"user_id"
+    int64 user_id = 2;
+    // @inject_tag: json:"status" form:"status"
+    int64 status = 3;
+    // @inject_tag: json:"title" form:"title"
+    string title = 4;
+    // @inject_tag: json:"content" form:"content"
+    string content = 5;
+    // @inject_tag: json:"start_time" form:"start_time"
+    int64 start_time = 6;
+    // @inject_tag: json:"end_time" form:"end_time"
+    int64 end_time = 7;
+}
+
+// ----------------- Task Requests -----------------
+message TaskCreateRequest {
+    // @inject_tag: json:"user_id" form:"user_id"
+    int64 user_id = 1;
+    // @inject_tag: json:"title" form:"title"
+    string title = 2;
+    // @inject_tag: json:"content" form:"content"
+    string content = 3;
+    // @inject_tag: json:"start_time" form:"start_time"
+    int64 start_time = 4;
+    // @inject_tag: json:"end_time" form:"end_time"
+    int64 end_time = 5;
+    // @inject_tag: json:"status" form:"status"
+    int64 status = 6;
+}
+
+message TaskUpdateRequest {
+    // @inject_tag: json:"task_id" form:"task_id"
+    int64 task_id = 1; // compulsory
+    // @inject_tag: json:"title" form:"title"
+    string title = 2;
+    // @inject_tag: json:"content" form:"content"
+    string content = 3;
+    // @inject_tag: json:"start_time" form:"start_time"
+    int64 start_time = 4;
+    // @inject_tag: json:"end_time" form:"end_time"
+    int64 end_time = 5;
+    // @inject_tag: json:"status" form:"status"
+    int64 status = 6;
+    // @inject_tag: json:"user_id" form:"user_id"
+    int64 user_id = 7; // compulsory
+}
+
+message TaskShowRequest {
+    // @inject_tag: json:"task_id" form:"task_id"s
+    int64 user_id = 1; // compulsory
+}
+
+message TaskDeleteRequest {
+    // @inject_tag: json:"task_id" form:"task_id"
+    int64 task_id = 1; // compulsory
+    int64 user_id = 2; // compulsory
+}
+
+// ----------------- Task Responses -----------------
+message TaskCommonResponse {
+    // @inject_tag: json:"code" form:"code"
+    int64 code = 1;
+    // @inject_tag: json:"msg" form:"msg"
+    string msg = 2;
+    // @inject_tag: json:"data" form:"data"
+    string data = 3;
+}
+
+message TasksDetailResponse {
+    // @inject_tag: json:"code" form:"code"
+    int64 code = 1;
+    // @inject_tag: json:"task_detail" form:"task_detail"
+    repeated TaskModel task_detail = 2;
+}
+
+// ----------------- Task Service -----------------
+service TaskService {
+    rpc TaskCreate(TaskCreateRequest) returns (TaskCommonResponse);
+    rpc TaskUpdate(TaskUpdateRequest) returns (TaskCommonResponse);
+    rpc TaskShow(TaskShowRequest) returns (TasksDetailResponse);
+    rpc TaskDelete(TaskDeleteRequest) returns (TaskCommonResponse);
+}

@@ -1,0 +1,11 @@
+包含 jwt 和 cors 一个是鉴权一个是跨域
+
+func JWT() gin.HandlerFunc
+func Cors() gin.HandlerFunc
+
+jwt 是从 token := c.GetHeader("Authorization")
+然后使用 ./pkg 中使用相关工具执行解析 
+并将成功解析之后的 userid 存放进 c.Request.Context()
+(也就是每一个网络请求所对应的 ctx)
+
+jwt 是用于 task 而 cors 跨域请求是所有都会经过的 middleware

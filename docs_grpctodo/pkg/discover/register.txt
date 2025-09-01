@@ -1,0 +1,22 @@
+register 是用来向 etcd 集群注册一个服务的实例对象的
+注册前提：即将传入的 etcdaddrs 的 etcd servers 都已经正确初始化并暴露端口 
+
+type Register struct {
+	leaseID   clientv3.LeaseID
+	cli       *clientv3.Client
+	keepalive <-chan *clientv3.LeaseKeepAliveResponse
+	srvInfo   ServerNode
+	srvTTL    int64
+
+	logger *logrus.Logger
+
+	EtcdAddrs   []string
+	DialTimeout int
+
+	closeCh chan struct{}
+}
+
+register 是作为 etcd client 向 etcd 注册服务
+同时保持 keepalive 使服务对象定时在 etcd 续约 保证发现
+
+配合 ./app/task/cmd/main 来进行讲解

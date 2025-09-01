@@ -1,0 +1,12 @@
+
+sessions.Sessions 在 Gin 里是一个 中间件生成函数
+
+告诉 Gin
+用这个名字的 Cookie + 这个存储方式来管理 Session
+并自动解析、保存每个请求的 Session 的函数。
+
+store 是 cookie.NewStore([]byte(secretKey))：
+用 secretKey 解密 Cookie 中的 Session 数据
+验证完整性，确保数据没有被篡改
+
+包含了 swagger 网关和 pprof 的网关

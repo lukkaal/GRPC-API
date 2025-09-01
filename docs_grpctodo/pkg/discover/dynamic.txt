@@ -1,0 +1,2 @@
+用于获取本机运行时参数 如 cpu 占用率和内存等
+用来在 register 的时候计算 srvInfo 的 weight 参数

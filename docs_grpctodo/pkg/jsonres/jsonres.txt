@@ -1,0 +1,19 @@
+在 response 和 structs 两个文件当中
+定义了 gin gateway 返回时候的结构体 
+也就是 c.json 中 body 参数的结构体
+
+同时封装了两个函数 用来填充 success 和 error 情况下的
+response 结构体参数
+
+同时 在 userinfo 文件当中：
+type UserInfo struct {
+	Id int64 `json:"id"`
+}
+
+在 middleware 的 jwt 中间件中
+会将前端传入的 token 进行解析 (claim 当中是以 userid 来产生的 token)
+解析出来了 userid 后 放入 gin.context 的 底层 context(每一个网络请求底层的 ctx)
+
+在执行和 task 相关的操作的时候 会使用到 jwt 将 userid 的信息存放到 ctx
+然后在执行 task 具体的 handler 的时候 将 userid 的信息解析出来
+作为参数传入到 grpc 的 request 当中

@@ -1,0 +1,2 @@
+swag 工具负责生成 docs（OpenAPI 规范）
+gin-swagger 负责把这些 docs 渲染成 Swagger UI 页面
